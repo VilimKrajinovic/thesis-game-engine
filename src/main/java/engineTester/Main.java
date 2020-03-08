@@ -1,8 +1,10 @@
 package engineTester;
 
+import entities.Entity;
 import model.Model;
 import model.TexturedModel;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector3f;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.Renderer;
@@ -41,10 +43,12 @@ public class Main {
         Model model = loader.loadToVertexArrayObject(vertices, textureCoordinates, indices);
         TexturedModel texturedModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("texture")));
 
+        Entity entity = new Entity(texturedModel,new Vector3f(0.5f,0,0), 0,0,45,0.5f);
+
         while (!Display.isCloseRequested()){
             renderer.prepare();
             shader.start();
-            renderer.render(texturedModel);
+            renderer.render(entity, shader);
             shader.stop();
             DisplayManager.updateDisplay();
         }
