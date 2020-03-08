@@ -17,9 +17,8 @@ public class Main {
         DisplayManager.createDisplay();
 
         Loader loader = new Loader();
-        Renderer renderer = new Renderer();
-
         StaticShader shader = new StaticShader();
+        Renderer renderer = new Renderer(shader);
 
         float[] vertices = {
                 -0.5f, 0.5f, 0f,
@@ -43,9 +42,10 @@ public class Main {
         Model model = loader.loadToVertexArrayObject(vertices, textureCoordinates, indices);
         TexturedModel texturedModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("texture")));
 
-        Entity entity = new Entity(texturedModel,new Vector3f(0.5f,0,0), 0,0,45,0.5f);
+        Entity entity = new Entity(texturedModel,new Vector3f(0.5f,0,-1), 0,0,45,0.5f);
 
         while (!Display.isCloseRequested()){
+            entity.increaseRotation(0.1f,0.1f,0.1f);
             renderer.prepare();
             shader.start();
             renderer.render(entity, shader);
