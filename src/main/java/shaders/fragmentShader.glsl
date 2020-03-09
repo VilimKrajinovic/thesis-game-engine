@@ -11,5 +11,5 @@ void main() {
 
     vec4 textureColor = texture(textureSampler, pass_textureCoordinates);
 
-    out_colour = vec4(colour, 1.0) * textureColor;
+    out_colour =  textureColor;
 }
