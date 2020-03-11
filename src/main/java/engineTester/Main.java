@@ -32,6 +32,9 @@ public class Main {
         Model model = loader.loadToVertexArrayObject(modelData.getVertices(), modelData.getTextureCoordinates(),
                 modelData.getNormals(), modelData.getIndices());
         TexturedModel texturedModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("white")));
+        ModelTexture texture = texturedModel.getTexture();
+        texture.setReflectivity(1f);
+        texture.setShineDamper(10f);
 
         Entity entity = new Entity(texturedModel, new Vector3f(0, -1, -7), 0, 0, 0, 1);
 
