@@ -21,7 +21,6 @@ public abstract class ShaderProgram {
     private int vertexShaderId;
     private int fragmentShaderId;
 
-
     public ShaderProgram(String vertexFile, String fragmentFile) {
         vertexShaderId = loadShader(vertexFile, GL20.GL_VERTEX_SHADER);
         fragmentShaderId = loadShader(fragmentFile, GL20.GL_FRAGMENT_SHADER);
@@ -63,11 +62,11 @@ public abstract class ShaderProgram {
         return GL20.glGetUniformLocation(programId, uniformName);
     }
 
-    protected void loadFloat(int location, float value){
+    protected void loadFloat(int location, float value) {
         GL20.glUniform1f(location, value);
     }
 
-    protected void loadVector(int location, Vector3f vector){
+    protected void loadVector(int location, Vector3f vector) {
         GL20.glUniform3f(location, vector.x, vector.y, vector.z);
     }
 
@@ -78,6 +77,7 @@ public abstract class ShaderProgram {
         }
         GL20.glUniform1f(location, toLoad);
     }
+
     protected void loadMatrix(int location, Matrix4f matrix) {
         matrix.store(matrixBuffer);
         matrixBuffer.flip();
@@ -92,6 +92,7 @@ public abstract class ShaderProgram {
             while ((line = reader.readLine()) != null) {
                 shaderSource.append(line).append("\n");
             }
+            reader.close();
         } catch (IOException e) {
             System.out.println("Couldn't read specified file");
             e.printStackTrace();
@@ -109,6 +110,5 @@ public abstract class ShaderProgram {
 
         return shaderId;
     }
-
 
 }

@@ -18,6 +18,7 @@ import java.util.List;
 
 public class Loader {
     private static final int SIZE_OF_VERTEX = 3;
+    private static final int SIZE_OF_NORMAL = 3;
     private static final int SIZE_OF_TEXTURE = 2;
 
     List<Integer> vaos = new ArrayList<>();
@@ -37,11 +38,12 @@ public class Loader {
         return textureID;
     }
 
-    public Model loadToVertexArrayObject(float[] positions, float[] textureCoordinates, int[] indices) {
+    public Model loadToVertexArrayObject(float[] positions, float[] textureCoordinates, float[] normals, int[] indices) {
         int vaoID = createVAO();
         bindIndicesBuffer(indices);
         storeDataInAttributeList(0, SIZE_OF_VERTEX, positions);
         storeDataInAttributeList(1, SIZE_OF_TEXTURE, textureCoordinates);
+        storeDataInAttributeList(2, SIZE_OF_NORMAL, normals);
         unbindVAO();
         return new Model(vaoID, indices.length);
     }

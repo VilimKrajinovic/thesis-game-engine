@@ -2,6 +2,7 @@ package engineTester;
 
 import entities.Camera;
 import entities.Entity;
+import entities.Light;
 import loaders.ModelData;
 import loaders.OBJLoader;
 import model.Model;
@@ -25,18 +26,21 @@ public class Main {
 
         Camera camera = new Camera();
 
+        Light light = new Light(new Vector3f(0, 0, 3), new Vector3f(1, 1, 1));
 
         ModelData modelData = OBJLoader.load("girl");
-        Model model = loader.loadToVertexArrayObject(modelData.getVertices(), modelData.getTextureCoordinates(), modelData.getIndices());
-        TexturedModel texturedModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("girl")));
+        Model model = loader.loadToVertexArrayObject(modelData.getVertices(), modelData.getTextureCoordinates(),
+                modelData.getNormals(), modelData.getIndices());
+        TexturedModel texturedModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("white")));
 
-        Entity entity = new Entity(texturedModel,new Vector3f(0,0,-1), 0,0,0,0.5f);
+        Entity entity = new Entity(texturedModel, new Vector3f(0, -1, -7), 0, 0, 0, 1);
 
-        while (!Display.isCloseRequested()){
-            entity.increaseRotation(0,1,0);
+        while (!Display.isCloseRequested()) {
+            entity.increaseRotation(0, 1, 0);
             camera.move();
             renderer.prepare();
             shader.start();
+            shader.loadLight(light);
             shader.loadViewMatrix(camera);
             renderer.render(entity, shader);
             shader.stop();

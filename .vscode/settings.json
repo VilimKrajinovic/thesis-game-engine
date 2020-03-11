@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+  },
+  "java.project.referencedLibraries": ["lib/**/*.jar", "zavrsni/lib/**/*.jar"],
+  "java.dependency.syncWithFolderExplorer": true
+}
