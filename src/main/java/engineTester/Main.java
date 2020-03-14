@@ -32,7 +32,7 @@ public class Main {
         TexturedModel texturedModel = new TexturedModel(model,
                 new ModelTexture(loader.loadTexture("grass_transparent")));
         texturedModel.getTexture().setHasTransparency(true);
-        // texturedModel.getTexture().setFakeLighting(true);
+        texturedModel.getTexture().setUseFakeLighting(true);
         ModelTexture texture = texturedModel.getTexture();
         texture.setReflectivity(1f);
         texture.setShineDamper(10f);
