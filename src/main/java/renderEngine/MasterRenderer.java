@@ -39,8 +39,7 @@ public class MasterRenderer {
     private StaticShader shader = new StaticShader();
 
     public MasterRenderer() {
-        GL11.glEnable(GL11.GL_CULL_FACE);
-        GL11.glCullFace(GL11.GL_BACK);
+        enableBackfaceCulling();
         createProjectionMatrix();
         renderer = new EntityRenderer(shader, projectionMatrix);
         terrainRenderer = new TerrainRenderer(terrainShader, projectionMatrix);
@@ -61,6 +60,15 @@ public class MasterRenderer {
         terrainShader.stop();
         terrains.clear();
         entities.clear();
+    }
+
+    public static void enableBackfaceCulling() {
+        GL11.glEnable(GL11.GL_CULL_FACE);
+        GL11.glCullFace(GL11.GL_BACK);
+    }
+
+    public static void disableBackfaceCulling() {
+        GL11.glDisable(GL11.GL_CULL_FACE);
     }
 
     public void processTerrain(Terrain terrain) {

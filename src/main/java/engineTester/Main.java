@@ -26,10 +26,13 @@ public class Main {
 
         Light light = new Light(new Vector3f(2000, 2000, 2000), new Vector3f(1, 1, 1));
 
-        ModelData modelData = OBJLoader.load("girl");
+        ModelData modelData = OBJLoader.load("grassModel");
         Model model = loader.loadToVertexArrayObject(modelData.getVertices(), modelData.getTextureCoordinates(),
                 modelData.getNormals(), modelData.getIndices());
-        TexturedModel texturedModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("white")));
+        TexturedModel texturedModel = new TexturedModel(model,
+                new ModelTexture(loader.loadTexture("grass_transparent")));
+        texturedModel.getTexture().setHasTransparency(true);
+        // texturedModel.getTexture().setFakeLighting(true);
         ModelTexture texture = texturedModel.getTexture();
         texture.setReflectivity(1f);
         texture.setShineDamper(10f);
@@ -41,7 +44,7 @@ public class Main {
 
         MasterRenderer renderer = new MasterRenderer();
         while (!Display.isCloseRequested()) {
-            entity.increaseRotation(0, 1, 0);
+            // entity.increaseRotation(0, 1, 0);
             renderer.processTerrain(terrain);
             renderer.processTerrain(terrain2);
             renderer.processEntity(entity);
