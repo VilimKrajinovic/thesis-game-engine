@@ -3,7 +3,8 @@ package terrain;
 import lombok.Getter;
 import model.Model;
 import renderEngine.Loader;
-import textures.ModelTexture;
+import textures.TerrainTexture;
+import textures.TerrainTexturePack;
 
 @Getter
 public class Terrain {
@@ -13,10 +14,12 @@ public class Terrain {
     private float x;
     private float z;
     private Model model;
-    private ModelTexture modelTexture;
+    private TerrainTexturePack terrainTexturePack;
+    private TerrainTexture blendMap;
 
-    public Terrain(int gridX, int gridZ, Loader loader, ModelTexture modelTexture) {
-        this.modelTexture = modelTexture;
+    public Terrain(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack, TerrainTexture blendMap) {
+        this.terrainTexturePack = texturePack;
+        this.blendMap = blendMap;
         this.x = gridX * SIZE;
         this.z = gridZ * SIZE;
         this.model = generateTerrain(loader);

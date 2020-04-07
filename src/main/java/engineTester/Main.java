@@ -15,6 +15,8 @@ import renderEngine.Loader;
 import renderEngine.MasterRenderer;
 import terrain.Terrain;
 import textures.ModelTexture;
+import textures.TerrainTexture;
+import textures.TerrainTexturePack;
 
 public class Main {
 
@@ -22,6 +24,15 @@ public class Main {
         DisplayManager.createDisplay();
 
         Loader loader = new Loader();
+
+        TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("grass"));
+        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
+        TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("flowers"));
+        TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("brickRoad"));
+
+        TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
+        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendmap"));
+
         Camera camera = new Camera();
 
         Light light = new Light(new Vector3f(2000, 2000, 2000), new Vector3f(1, 1, 1));
@@ -39,8 +50,8 @@ public class Main {
 
         Entity entity = new Entity(texturedModel, new Vector3f(0, 0, -7), 0, 0, 0, 1);
 
-        Terrain terrain = new Terrain(0, -1, loader, new ModelTexture(loader.loadTexture("grass")));
-        Terrain terrain2 = new Terrain(-1, -1, loader, new ModelTexture(loader.loadTexture("grass")));
+        Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap);
+        Terrain terrain2 = new Terrain(-1, -1, loader, texturePack, blendMap);
 
         MasterRenderer renderer = new MasterRenderer();
         while (!Display.isCloseRequested()) {
