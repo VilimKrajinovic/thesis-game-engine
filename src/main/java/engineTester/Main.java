@@ -6,6 +6,7 @@ import org.lwjgl.util.vector.Vector3f;
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
+import entities.Player;
 import loaders.ModelData;
 import loaders.OBJLoader;
 import model.Model;
@@ -53,9 +54,17 @@ public class Main {
         Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap);
         Terrain terrain2 = new Terrain(-1, -1, loader, texturePack, blendMap);
 
+        ModelData girlData = OBJLoader.load("girl");
+        Model girl = loader.loadToVertexArrayObject(girlData.getVertices(), girlData.getTextureCoordinates(),
+                girlData.getNormals(), girlData.getIndices());
+        TexturedModel texturedGirl = new TexturedModel(girl, new ModelTexture(loader.loadTexture("girl")));
+        Player player = new Player(texturedGirl, new Vector3f(0, 0, 0), 0, 0, 0, 1);
+
         MasterRenderer renderer = new MasterRenderer();
         while (!Display.isCloseRequested()) {
             // entity.increaseRotation(0, 1, 0);
+            player.move();
+            renderer.processEntity(player);
             renderer.processTerrain(terrain);
             renderer.processTerrain(terrain2);
             renderer.processEntity(entity);

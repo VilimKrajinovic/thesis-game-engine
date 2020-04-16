@@ -15,29 +15,6 @@ public class Camera {
     private float roll;
 
     public void move() {
-        if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-            position.z -= SPEED;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-            position.z += SPEED;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-            position.x += SPEED;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-            position.x -= SPEED;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            yaw -= SPEED * 2;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            yaw += SPEED * 2;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-            position.y += SPEED;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-            position.y -= SPEED;
-        }
+
     }
 }
