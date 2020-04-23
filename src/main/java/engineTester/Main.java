@@ -34,8 +34,6 @@ public class Main {
         TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
         TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendmap"));
 
-        Camera camera = new Camera();
-
         Light light = new Light(new Vector3f(2000, 2000, 2000), new Vector3f(1, 1, 1));
 
         ModelData modelData = OBJLoader.load("grassModel");
@@ -60,6 +58,7 @@ public class Main {
         TexturedModel texturedGirl = new TexturedModel(girl, new ModelTexture(loader.loadTexture("girl")));
         Player player = new Player(texturedGirl, new Vector3f(0, 0, 0), 0, 0, 0, 1);
 
+        Camera camera = new Camera(player);
         MasterRenderer renderer = new MasterRenderer();
         while (!Display.isCloseRequested()) {
             // entity.increaseRotation(0, 1, 0);

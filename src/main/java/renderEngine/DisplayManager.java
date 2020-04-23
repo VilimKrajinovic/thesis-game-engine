@@ -13,6 +13,7 @@ public class DisplayManager {
     private static final int FPS = 144;
 
     private static long lastFrameTime;
+
     @Getter
     private static float delta;
 
@@ -38,12 +39,11 @@ public class DisplayManager {
         lastFrameTime = currentFrameTime;
     }
 
-    public static void closeDisplay() {
-        Display.destroy();
-    }
-
     private static long getCurrentTime() {
         return Sys.getTime() * 1000 / Sys.getTimerResolution();
     }
 
+    public static void closeDisplay() {
+        Display.destroy();
+    }
 }
