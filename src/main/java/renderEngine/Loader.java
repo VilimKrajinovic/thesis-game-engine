@@ -3,6 +3,7 @@ package renderEngine;
 import model.Model;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
@@ -29,6 +30,9 @@ public class Loader {
         Texture texture = null;
         try {
             texture = TextureLoader.getTexture("PNG", new FileInputStream("resources/" + filename + ".png"));
+            GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
+            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, -1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,7 +42,8 @@ public class Loader {
         return textureID;
     }
 
-    public Model loadToVertexArrayObject(float[] positions, float[] textureCoordinates, float[] normals, int[] indices) {
+    public Model loadToVertexArrayObject(float[] positions, float[] textureCoordinates, float[] normals,
+            int[] indices) {
         int vaoID = createVAO();
         bindIndicesBuffer(indices);
         storeDataInAttributeList(0, SIZE_OF_VERTEX, positions);
@@ -76,31 +81,27 @@ public class Loader {
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboId);
         FloatBuffer buffer = storeDataInFloatBuffer(data);
 
-        //specify what kind of data we are using, the buffer array, what the data will be used for
+        // specify what kind of data we are using, the buffer array, what the data will
+        // be used for
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
-        GL20.glVertexAttribPointer(
-                attributeNumber,
-                coordinateSize,
-                GL11.GL_FLOAT,
-                false,
-                0,  //distance between data
-                0 //offset of data
+        GL20.glVertexAttribPointer(attributeNumber, coordinateSize, GL11.GL_FLOAT, false, 0, // distance between data
+                0 // offset of data
         );
 
-        //unbinds the current VertexBufferObject
+        // unbinds the current VertexBufferObject
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
     }
 
     private FloatBuffer storeDataInFloatBuffer(float[] data) {
         FloatBuffer fb = BufferUtils.createFloatBuffer(data.length);
         fb.put(data);
-        //prepares the buffer to be read from
+        // prepares the buffer to be read from
         fb.flip();
         return fb;
     }
 
     private void unbindVAO() {
-        //unbinds the currently bound VertexArrayObject
+        // unbinds the currently bound VertexArrayObject
         GL30.glBindVertexArray(0);
     }
 
