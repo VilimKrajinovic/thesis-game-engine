@@ -43,14 +43,11 @@ public class Main {
                 new ModelTexture(loader.loadTexture("grass_transparent")));
         texturedModel.getTexture().setHasTransparency(true);
         texturedModel.getTexture().setUseFakeLighting(true);
-        ModelTexture texture = texturedModel.getTexture();
-        texture.setReflectivity(1f);
-        texture.setShineDamper(10f);
 
         Entity entity = new Entity(texturedModel, new Vector3f(0, 0, -7), 0, 0, 0, 1);
 
-        Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap);
-        Terrain terrain2 = new Terrain(-1, -1, loader, texturePack, blendMap);
+        Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, "heightMap2");
+        Terrain terrain2 = new Terrain(-1, -1, loader, texturePack, blendMap, "heightMap2");
 
         ModelData girlData = OBJLoader.load("girl");
         Model girl = loader.loadToVertexArrayObject(girlData.getVertices(), girlData.getTextureCoordinates(),
