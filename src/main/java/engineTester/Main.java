@@ -47,7 +47,8 @@ public class Main {
         Entity entity = new Entity(texturedModel, new Vector3f(0, 0, -7), 0, 0, 0, 1);
 
         Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, "heightMap2");
-        Terrain terrain2 = new Terrain(-1, -1, loader, texturePack, blendMap, "heightMap2");
+        // Terrain terrain2 = new Terrain(-1, -1, loader, texturePack, blendMap,
+        // "heightMap2");
 
         ModelData girlData = OBJLoader.load("girl");
         Model girl = loader.loadToVertexArrayObject(girlData.getVertices(), girlData.getTextureCoordinates(),
@@ -59,10 +60,10 @@ public class Main {
         MasterRenderer renderer = new MasterRenderer();
         while (!Display.isCloseRequested()) {
             // entity.increaseRotation(0, 1, 0);
-            player.move();
+            player.move(terrain);
             renderer.processEntity(player);
             renderer.processTerrain(terrain);
-            renderer.processTerrain(terrain2);
+            // renderer.processTerrain(terrain2);
             renderer.processEntity(entity);
             renderer.render(light, camera);
             camera.move();
