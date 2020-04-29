@@ -52,11 +52,11 @@ public class Terrain {
 
         float heightOfTerrain;
         if (xCoordinate <= (1 - zCoordinate)) {
-            heightOfTerrain = Maths.barryCentric(new Vector3f(0, heights[gridX][gridZ], 0),
+            heightOfTerrain = Maths.barycentric(new Vector3f(0, heights[gridX][gridZ], 0),
                     new Vector3f(1, heights[gridX + 1][gridZ], 0), new Vector3f(0, heights[gridX][gridZ + 1], 1),
                     new Vector2f(xCoordinate, zCoordinate));
         } else {
-            heightOfTerrain = Maths.barryCentric(new Vector3f(1, heights[gridX + 1][gridZ], 0),
+            heightOfTerrain = Maths.barycentric(new Vector3f(1, heights[gridX + 1][gridZ], 0),
                     new Vector3f(1, heights[gridX + 1][gridZ + 1], 1), new Vector3f(0, heights[gridX][gridZ + 1], 1),
                     new Vector2f(xCoordinate, zCoordinate));
         }
