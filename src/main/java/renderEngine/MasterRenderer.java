@@ -84,15 +84,17 @@ public class MasterRenderer {
     }
 
     public void processEntity(Entity entity) {
-        TexturedModel texturedModel = entity.getTexturedModel();
-        List<Entity> batch = entities.get(texturedModel);
+        if (entity.isShouldRender()) {
+            TexturedModel texturedModel = entity.getTexturedModel();
+            List<Entity> batch = entities.get(texturedModel);
 
-        if (batch != null) {
-            batch.add(entity);
-        } else {
-            List<Entity> newBatch = new ArrayList<>();
-            newBatch.add(entity);
-            entities.put(texturedModel, newBatch);
+            if (batch != null) {
+                batch.add(entity);
+            } else {
+                List<Entity> newBatch = new ArrayList<>();
+                newBatch.add(entity);
+                entities.put(texturedModel, newBatch);
+            }
         }
     }
 

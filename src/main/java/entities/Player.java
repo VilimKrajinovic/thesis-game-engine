@@ -1,7 +1,11 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
+import org.newdawn.slick.openal.SoundStore;
 
 import model.TexturedModel;
 import renderEngine.DisplayManager;
@@ -9,7 +13,7 @@ import terrain.Terrain;
 
 public class Player extends Entity {
 
-    private static final float RUN_SPEED = 10;
+    private static final float RUN_SPEED = 40;
     private static final float TURN_SPEED = 180;
     private static float GRAVITY = -50;
     private static final float JUMP_POWER = 15;
@@ -19,6 +23,8 @@ public class Player extends Entity {
     private float upwardsSpeed = 0;
 
     private boolean isInAir = false;
+
+    private List<Entity> inventory = new ArrayList<>();
 
     public Player(TexturedModel texturedModel, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
         super(texturedModel, position, rotX, rotY, rotZ, scale);
@@ -69,6 +75,15 @@ public class Player extends Entity {
         if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
             jump();
         }
+    }
+
+    public void pickUp(Entity entity) {
+        if (!inventory.contains(entity)) {
+            System.out.println("Pickedup entity");
+            inventory.add(entity);
+            entity.setShouldRender(false);
+        }
+        System.out.println("Currently there are " + inventory.size() + " items in inventory");
     }
 
 }
