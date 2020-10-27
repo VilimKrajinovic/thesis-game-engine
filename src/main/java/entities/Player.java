@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.openal.SoundStore;
 
 import model.TexturedModel;
 import renderEngine.DisplayManager;

@@ -12,7 +12,7 @@ import org.lwjgl.util.vector.Vector3f;
 import helpers.Maths;
 import lombok.Getter;
 import model.Model;
-import renderEngine.Loader;
+import loaders.Loader;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 

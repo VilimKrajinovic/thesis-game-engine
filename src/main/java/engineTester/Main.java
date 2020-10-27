@@ -16,7 +16,7 @@ import loaders.OBJLoader;
 import model.Model;
 import model.TexturedModel;
 import renderEngine.DisplayManager;
-import renderEngine.Loader;
+import loaders.Loader;
 import renderEngine.MasterRenderer;
 import terrain.Terrain;
 import textures.ModelTexture;

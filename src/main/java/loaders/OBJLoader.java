@@ -30,27 +30,18 @@ public class OBJLoader {
                 line = reader.readLine();
                 if (line.startsWith("v ")) {
                     String[] currentLine = line.split(" ");
-                    Vector3f vertex = new Vector3f(
-                            Float.parseFloat(currentLine[1]),
-                            Float.parseFloat(currentLine[2]),
-                            Float.parseFloat(currentLine[3])
-                    );
+                    Vector3f vertex = new Vector3f(Float.parseFloat(currentLine[1]), Float.parseFloat(currentLine[2]),
+                            Float.parseFloat(currentLine[3]));
                     Vertex newVertext = new Vertex(vertices.size(), vertex);
                     vertices.add(newVertext);
                 } else if (line.startsWith("vt ")) {
                     String[] currentLine = line.split(" ");
-                    Vector2f texture = new Vector2f(
-                            Float.parseFloat(currentLine[1]),
-                            Float.parseFloat(currentLine[2])
-                    );
+                    Vector2f texture = new Vector2f(Float.parseFloat(currentLine[1]), Float.parseFloat(currentLine[2]));
                     textures.add(texture);
                 } else if (line.startsWith("vn ")) {
                     String[] currentLine = line.split(" ");
-                    Vector3f normal = new Vector3f(
-                            Float.parseFloat(currentLine[1]),
-                            Float.parseFloat(currentLine[2]),
-                            Float.parseFloat(currentLine[3])
-                    );
+                    Vector3f normal = new Vector3f(Float.parseFloat(currentLine[1]), Float.parseFloat(currentLine[2]),
+                            Float.parseFloat(currentLine[3]));
                     normals.add(normal);
                 } else if (line.startsWith("f ")) {
                     break;
@@ -91,7 +82,8 @@ public class OBJLoader {
         return indicesArray;
     }
 
-    private static float convertDataToArrays(List<Vertex> vertices, List<Vector2f> textures, List<Vector3f> normals, float[] verticesArray, float[] texturesArray, float[] normalsArray) {
+    private static float convertDataToArrays(List<Vertex> vertices, List<Vector2f> textures, List<Vector3f> normals,
+                                             float[] verticesArray, float[] texturesArray, float[] normalsArray) {
         float furthestVector = 0;
         for (int i = 0; i < vertices.size(); i++) {
             Vertex currentVertex = vertices.get(i);
@@ -124,7 +116,7 @@ public class OBJLoader {
     }
 
     private static void processVertex(String[] vertex, List<Vertex> vertices, List<Integer> indices) {
-        int index = Integer.parseInt(vertex[0]) - 1; //starts at 1
+        int index = Integer.parseInt(vertex[0]) - 1; // starts at 1
         Vertex currentVertex = vertices.get(index);
         int textureIndex = Integer.parseInt(vertex[1]) - 1;
         int normalIndex = Integer.parseInt(vertex[2]) - 1;
@@ -137,25 +129,14 @@ public class OBJLoader {
         }
     }
 
-    private static void dealWithAlreadyProcessedVertex(
-            Vertex previousVertex,
-            int newTextureIndex,
-            int newNormalIndex,
-            List<Integer> indices,
-            List<Vertex> vertices
-    ) {
+    private static void dealWithAlreadyProcessedVertex(Vertex previousVertex, int newTextureIndex, int newNormalIndex,
+                                                       List<Integer> indices, List<Vertex> vertices) {
         if (previousVertex.hasSameTextureAndNormal(newTextureIndex, newNormalIndex)) {
             indices.add(previousVertex.getIndex());
         } else {
             Vertex anotherVertex = previousVertex.getDuplicateVertex();
             if (anotherVertex != null) {
-                dealWithAlreadyProcessedVertex(
-                        anotherVertex,
-                        newTextureIndex,
-                        newNormalIndex,
-                        indices,
-                        vertices
-                );
+                dealWithAlreadyProcessedVertex(anotherVertex, newTextureIndex, newNormalIndex, indices, vertices);
             } else {
                 Vertex duplicateVertex = new Vertex(vertices.size(), previousVertex.getPosition());
                 duplicateVertex.setTextureIndex(newTextureIndex);
